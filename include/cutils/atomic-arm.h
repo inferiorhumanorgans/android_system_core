@@ -144,6 +144,16 @@ extern inline int android_atomic_release_cas(int32_t old_value,
     return android_atomic_cas(old_value, new_value, ptr);
 }
 
+/* Pull in from GB */
+/* Yeah, deprecated but old props use it */
+#undef android_atomic_cmpxchg
+extern inline int android_atomic_cmpxchg(int32_t old_value,
+                                             int32_t new_value,
+                                             volatile int32_t *ptr)
+{
+    android_memory_barrier();
+    return android_atomic_cas(old_value, new_value, ptr);
+}
 
 #if defined(__thumb__)
 extern int32_t android_atomic_add(int32_t increment,
