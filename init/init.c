@@ -740,9 +740,9 @@ int main(int argc, char **argv)
     /* If /proc/last_kmsg exists the phone has been rebooted, if not
        it's a cold boot */
     if (access("/proc/last_kmsg", R_OK) == 0) {
-        action_for_each_trigger("boot-warm", action_add_queue_tail);
+        battchg_pause = 0;
     } else {
-        action_for_each_trigger("boot-cold", action_add_queue_tail);
+        battchg_pause = 1;
     }
 
     action_for_each_trigger("early-init", action_add_queue_tail);
